@@ -1,5 +1,6 @@
 Mitchell Dennis
 Justin Luttrell
+---------------
 
 Question 1:
 The 11 lines of code are repeated in the getAvailables() and getUpdates() 
