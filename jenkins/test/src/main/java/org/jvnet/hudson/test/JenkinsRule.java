@@ -215,7 +215,6 @@ import org.w3c.css.sac.CSSException;
 import org.w3c.css.sac.CSSParseException;
 import org.w3c.css.sac.ErrorHandler;
 import org.xml.sax.SAXException;
-import HudsonTestCase;
 
 /**
  * JUnit rule to allow test cases to fire up a Jenkins instance.
@@ -1429,34 +1428,6 @@ public class JenkinsRule implements TestRule, MethodRule, RootAction {
         assertThat(types.length, is(names.length));
         HudsonTestCase test = new HudsonTestCase() { };
         test.q6Refactor(lhs, rhs, primitiveProperties, names, types);;
-        for (int i=0; i<types.length; i++) {
-            Object lv = ReflectionUtils.getPublicProperty(lhs, names[i]);
-            Object rv = ReflectionUtils.getPublicProperty(rhs, names[i]);
-
-            if (Iterable.class.isAssignableFrom(types[i])) {
-                Iterable lcol = (Iterable) lv;
-                Iterable rcol = (Iterable) rv;
-                Iterator ltr,rtr;
-                for (ltr=lcol.iterator(), rtr=rcol.iterator(); ltr.hasNext() && rtr.hasNext();) {
-                    Object litem = ltr.next();
-                    Object ritem = rtr.next();
-
-                    if (findDataBoundConstructor(litem.getClass())!=null) {
-                        assertEqualDataBoundBeans(litem,ritem);
-                    } else {
-                        assertThat(ritem, is(litem));
-                    }
-                }
-                assertThat("collection size mismatch between " + lhs + " and " + rhs, ltr.hasNext() ^ rtr.hasNext(),
-                        is(false));
-            } else
-            if (findDataBoundConstructor(types[i])!=null || (lv!=null && findDataBoundConstructor(lv.getClass())!=null) || (rv!=null && findDataBoundConstructor(rv.getClass())!=null)) {
-                // recurse into nested databound objects
-                assertEqualDataBoundBeans(lv,rv);
-            } else {
-                primitiveProperties.add(names[i]);
-            }
-        }
 
         // compare shallow primitive properties
         if (!primitiveProperties.isEmpty())
