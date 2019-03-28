@@ -96,6 +96,7 @@ import java.lang.management.ThreadInfo;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -1287,7 +1288,16 @@ public abstract class HudsonTestCase extends TestCase implements RootAction {
         String[] names = ClassDescriptor.loadParameterNames(lc);
         Class<?>[] types = lc.getParameterTypes();
         assertEquals(names.length,types.length);
-        for (int i=0; i<types.length; i++) {
+        q6Refactor(lhs, rhs, primitiveProperties, names, types);
+
+        // compare shallow primitive properties
+        if (!primitiveProperties.isEmpty())
+            assertEqualBeans(lhs,rhs,Util.join(primitiveProperties,","));
+    }
+
+	public void q6Refactor(Object lhs, Object rhs, List<String> primitiveProperties, String[] names, Class<?>[] types)
+			throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, Exception {
+		for (int i=0; i<types.length; i++) {
             Object lv = ReflectionUtils.getPublicProperty(lhs, names[i]);
             Object rv = ReflectionUtils.getPublicProperty(rhs, names[i]);
 
@@ -1314,11 +1324,7 @@ public abstract class HudsonTestCase extends TestCase implements RootAction {
                 primitiveProperties.add(names[i]);
             }
         }
-
-        // compare shallow primitive properties
-        if (!primitiveProperties.isEmpty())
-            assertEqualBeans(lhs,rhs,Util.join(primitiveProperties,","));
-    }
+	}
 
     /**
      * Makes sure that two collections are identical via {@link #assertEqualDataBoundBeans(Object, Object)}

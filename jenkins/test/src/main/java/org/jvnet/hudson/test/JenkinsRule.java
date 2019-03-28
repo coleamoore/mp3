@@ -215,6 +215,7 @@ import org.w3c.css.sac.CSSException;
 import org.w3c.css.sac.CSSParseException;
 import org.w3c.css.sac.ErrorHandler;
 import org.xml.sax.SAXException;
+import HudsonTestCase;
 
 /**
  * JUnit rule to allow test cases to fire up a Jenkins instance.
@@ -1426,6 +1427,8 @@ public class JenkinsRule implements TestRule, MethodRule, RootAction {
         String[] names = ClassDescriptor.loadParameterNames(lc);
         Class<?>[] types = lc.getParameterTypes();
         assertThat(types.length, is(names.length));
+        HudsonTestCase test = new HudsonTestCase() { };
+        test.q6Refactor(lhs, rhs, primitiveProperties, names, types);;
         for (int i=0; i<types.length; i++) {
             Object lv = ReflectionUtils.getPublicProperty(lhs, names[i]);
             Object rv = ReflectionUtils.getPublicProperty(rhs, names[i]);
