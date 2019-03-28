@@ -1,0 +1,28 @@
+Mitchell Dennis
+Justin Luttrell
+
+Question 1:
+The 11 lines of code are repeated in the getAvailables() and getUpdates() 
+methods which means this code smell is duplicate code. We used the Extract 
+Method form of refactoring to create a method that performs these 11 lines
+rather than having them repeat in different methods.
+
+Question 2:
+Check github for commit q2.
+
+Question 3:
+The updateAndTrim() method doesn't seem to belong in the Nodes class since the 
+the code in the method only calls from the jenkins.model package. It should be 
+moved to the jenkins.model.Jenkins class. This is an example of feature envy code
+smells and it can be corrected with move refactoring.
+
+Question 4:
+Since the code uses only an iterator, we used a while loop (but could have used a
+for loop) to repeat the statements. The code smell is duplicate code.
+
+Question 5:
+The code smell was duplicate code. Check github for commit q5
+
+Question 6:
+Using the tool we were able to find about 10 duplicate lines of code in HudsonTestCase
+and JenkinsRule files. We used the extract method to refactor the code.
