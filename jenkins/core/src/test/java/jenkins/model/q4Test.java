@@ -17,8 +17,8 @@ public class q4Test {
 	@Test
 	public void testDollarSign() {
 		IdStrategy.CaseSensitive test = new IdStrategy.CaseSensitive();
-		String filename = "test$1234";
-		assertEquals(test.idFromFilename(filename), "testthis");		
+		String filename = "test$0000";
+		assertEquals(test.idFromFilename(filename), "test");		
 	}
 
 }
