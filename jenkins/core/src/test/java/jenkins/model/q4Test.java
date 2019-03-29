@@ -9,8 +9,8 @@ public class q4Test {
 	@Test
 	public void testInitialCase() {
 		IdStrategy.CaseSensitive test = new IdStrategy.CaseSensitive();
-	    String filename = "[a-z0-9_. -]+";
-		assertEquals(test.idFromFilename(filename), "[a-z0-9_. -]+");
+	    String filename = "[a-z0-9_. -]";
+		assertEquals(test.idFromFilename(filename), "[a-z0-9_. -]");
 		
 	}
 	@Test
