@@ -15,10 +15,17 @@ public class q4Test {
 	}
 	
 	@Test
+	public void testDollarSignExclamation() {
+		IdStrategy.CaseSensitive test = new IdStrategy.CaseSensitive();
+		String filename = "test$0021";
+		assertEquals(test.idFromFilename(filename), "test!");		
+	}
+	
+	@Test
 	public void testDollarSign() {
 		IdStrategy.CaseSensitive test = new IdStrategy.CaseSensitive();
-		String filename = "test$0000";
-		assertEquals(test.idFromFilename(filename), "test");		
+		String filename = "test$0055";
+		assertEquals(test.idFromFilename(filename), "testU");		
 	}
 
 }
